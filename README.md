@@ -15,9 +15,16 @@
 - terminal에서 어떤 명령어를 입력한 후 혹은 입력 전 tab을 누르면 명령어를 맞게 입력했는지 확인할 수 있다.
 - turtlesim_node 실행하기
 - remap으로 이름 바꿔서 똑같은 프로그램 실행해보기
+- rqt 사용
+- topic은 pub, service는 call로 실행
+- topic은 계속 데이터를 흘려보내는 통신(실시간 스트리밍)
+- service는 필요할 때 요청하고 한 번 응답받는 통신
+- action은 시간이 걸리는 목표 수행
+- service와 action이 다른점은 service는 즉각적인 수행은 하는 반면, action은 동적인 수행을 함.
 --------------------
-- 총정리
--
+- 총정리: ROS2 기본 구조(Node, Topic, Service, Action, Parameter)를 turtlesim을 통해 실습하며 각 통신 방식의 차이를 학습. 또한 rqt와 YAML 파라미터를 활용해 노드 상태를 확인하고 환경 설정을 적용하는 방법을 익힘.
+- p.123~p.200
+
 
 
 
