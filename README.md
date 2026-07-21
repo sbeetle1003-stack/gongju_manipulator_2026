@@ -5,25 +5,31 @@
 # 2026-07-20 수업 내용 정리(1주차)
 --------------------
 - 오전
-- wsl을 설치(Ubuntu 24.04)
-- github 아이디를 만들고 repository를 생성
-- git clone을 해서 wsl에 복사
-- Vscode설치해서remote wsl로 접속
+- wsl 설치(Ubuntu 24.04)
+- github 계정 생성 및 repository 생성
+- git clone으로 repository를 wsl에 복사
+- VSCode 설치 후 Remote-WSL로 접속
 --------------------
 - 오후
-- bashrc
-- terminal에서 어떤 명령어를 입력한 후 혹은 입력 전 tab을 누르면 명령어를 맞게 입력했는지 확인할 수 있다.
-- turtlesim_node 실행하기
-- remap으로 이름 바꿔서 똑같은 프로그램 실행해보기
+- .bashrc 개념 학습
+- 터미널에서 Tab 자동완성으로 명령어 입력 확인 가능
+- turtlesim_node 실행
+- remap으로 이름을 바꿔서 동일 프로그램 재실행
 - rqt 사용
 - topic은 pub, service는 call로 실행
-- topic은 계속 데이터를 흘려보내는 통신(실시간 스트리밍)
-- service는 필요할 때 요청하고 한 번 응답받는 통신
-- action은 시간이 걸리는 목표 수행
-- service와 action이 다른점은 service는 즉각적인 수행은 하는 반면, action은 동적인 수행을 함.
+- topic: 계속 데이터를 흘려보내는 통신(실시간 스트리밍)
+- service: 필요할 때 요청하고 한 번 응답받는 통신
+- action: 시간이 걸리는 목표를 수행하는 통신
+- service와 action의 차이: service는 즉각적인 수행, action은 동적인(장시간) 수행
 --------------------
-- 총정리: ROS2 기본 구조(Node, Topic, Service, Action, Parameter)를 turtlesim을 통해 실습하며 각 통신 방식의 차이를 학습. 또한 rqt와 YAML 파라미터를 활용해 노드 상태를 확인하고 환경 설정을 적용하는 방법을 익힘.
-- p.123~p.200
+- 총정리
+- ROS2 기본 구조(Node, Topic, Service, Action, Parameter)를 turtlesim으로 실습하며 통신 방식별 차이 학습
+- rqt와 YAML 파라미터로 노드 상태 확인 및 환경 설정 적용법 학습
+- ros2 run [패키지] [노드이름]
+- ros2 node, topic(echo, pub, sub, bw, hz), service(call), action(send_goal), interface(proto) 명령 실습
+- GUI 환경과 CLI 환경의 차이
+- 파라미터 등록 시 환경변수를 주로 사용
+- 교재 p.123~p.200
 
 
 
@@ -34,6 +40,15 @@
 # 2026-07-21 수업 내용 정리(1주차)
 --------------------
 - 오전
+- ros2의 Common Packages
+- .bashrc에 워크스페이스 오버레이(source install/setup.bash), colcon 자동완성, vcstool 자동완성, colcon_cd 설정 추가
+- alias 등록(cbp: colcon build --symlink-install --packages-select, killgazebo)
+- ros2 pkg create --build-type ament_python [패키지명] --dependencies [의존성]으로 패키지 생성 실습
+- package.xml에 지정한 의존성이 <depend> 태그로 자동 반영되는 것 확인
+- setup.py의 entry_points(console_scripts)로 노드를 등록하는 방법 학습
+- 함수형 퍼블리셔 노드 작성(create_timer로 주기적 콜백 실행)
+- 클래스형 퍼블리셔 노드 작성(Node 상속, self.count로 카운터 관리)
+- colcon build로 install 폴더를 갱신해야 ros2 run에 반영됨을 확인(재빌드 필요성)
 
 --------------------
 - 오후
