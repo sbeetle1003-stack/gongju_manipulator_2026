@@ -105,6 +105,15 @@
 # 2026-07-23 수업 내용 정리(1주차)
 --------------------
 - 오전
+- 액션(Action) 개념 학습: user_interface 패키지에 action/Fibonacci.action 정의(Goal: step, Result/Feedback: header+시퀀스)
+- rosidl_generate_interfaces에 action 파일 추가 시 CMakeLists.txt 설정 방법 학습(action_msgs 암묵적 의존 확인)
+- action_server.py 작성: ActionServer로 fibonacci_server 등록, execute_callback에서 goal_handle로 feedback 스트리밍 후 result 반환
+- rclpy.action.ActionServer 사용법 트러블슈팅: self.action_server(...)로 잘못 호출하던 버그를 self.action_server = ActionServer(...)로 수정
+- .action 파일의 필드명이 곧 생성되는 Python 클래스 속성명이 된다는 것 확인(오타 나면 오타 그대로 필드명이 됨 → rosidl 재빌드 필요성)
+- ros2 action send_goal --feedback 명령으로 실제 목표 전송 및 중간 피드백/최종 결과 확인
+- GoalStatus 로깅, time.sleep(1)로 피드백을 관찰 가능하게 만드는 방법 학습
+- action_server.py 코드리뷰: cancel 요청 미처리(취소 시 succeed() 호출로 예외 위험), time.sleep이 싱글스레드 executor를 블록하는 문제(서비스 때와 동일 패턴), 항상 참인 죽은 분기문 발견
+- VSCode 저장 충돌(Resolve Save Conflict) 대응 방법 학습 — 디스크/에디터 버전이 어긋났을 때 Revert File로 동기화
 
 --------------------
 - 오후

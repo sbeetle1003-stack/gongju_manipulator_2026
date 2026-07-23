@@ -46,6 +46,8 @@ setup(
             "service_client = gong_basic.service_client:main",
             "my_param = gong_basic.my_param:main",
             "param_async = gong_basic.param_async:main",
+            "action_server = gong_basic.action_server:main",
+            "action_client = gong_basic.action_client:main",
         ],
     },
 )
