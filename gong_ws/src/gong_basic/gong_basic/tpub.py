@@ -1,37 +1,32 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Header
-from rclpy.qos import QoSProfile
 
 
-class T_pub(Node):
+class Header_pub(Node):
     def __init__(self):
-        super().__init__('tpub')
-        self.qos_profile = QoSProfile(depth=10)
-        self.publisher = self.create_publisher(Header, 'time', self.qos_profile)
-        self.timer = self.create_timer(0.1, self.timer_callback)
+        super().__init__("tpub")  # 노드 이름
+        # timer 등록
+        self.create_timer(1, self.timer_callback)
+        self.pub = self.create_publisher(Header, "time", 10)
 
     def timer_callback(self):
-        msg = Header()
+        msg = Header()  # DDS 에 보낼 객체 초기화
+        msg.frame_id = "time test"
         msg.stamp = self.get_clock().now().to_msg()
-        self.publisher.publish(msg)
-        self.get_logger().info(f'Published time: {msg.stamp}')
+        self.pub.publish(msg)  # DDS 로 보내는 기능 수행
 
 
 def main(args=None):
-    rclpy.init(args=args)
-    node = T_pub()
+    rclpy.init(args=args)  # rmw 활성화
+    node = Header_pub()
     try:
-        rclpy.spin(node)
+        rclpy.spin(node)  # 블럭 (무한 루프)
     except KeyboardInterrupt:
-        node.get_logger().info('키보드 인터럽트')
+        pass
     finally:
-        try:
-            node.destroy_node()
-        except KeyboardInterrupt:
-            pass
-        rclpy.try_shutdown()
+        node.destroy_node()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
