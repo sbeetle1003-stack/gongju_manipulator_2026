@@ -5,3 +5,10 @@ log/
 # Python
 __pycache__/
 *.pyc
+
+# External ROBOTIS packages (cloned dependencies, not tracked in this repo)
+open_manipulator_ws/src/DynamixelSDK/
+open_manipulator_ws/src/dynamixel_hardware_interface/
+open_manipulator_ws/src/dynamixel_interfaces/
+open_manipulator_ws/src/open_manipulator/
+open_manipulator_ws/src/robotis_interfaces/
