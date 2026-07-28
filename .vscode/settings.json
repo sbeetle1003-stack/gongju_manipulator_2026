@@ -1,11 +1,16 @@
 {
   "python.analysis.extraPaths": [
-    "${workspaceFolder}/gong_ws/install/user_interface/lib/python3.12/site-packages",
-    "/opt/ros/jazzy/lib/python3.12/site-packages"
+    "/opt/ros/jazzy/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/gong_basic/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/tf2_basic/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/user_interface/lib/python3.12/site-packages"
   ],
   "python.autoComplete.extraPaths": [
-    "${workspaceFolder}/gong_ws/install/user_interface/lib/python3.12/site-packages",
-    "/opt/ros/jazzy/lib/python3.12/site-packages"
+    "/opt/ros/jazzy/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/gong_basic/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/tf2_basic/lib/python3.12/site-packages",
+    "${workspaceFolder}/gong_ws/install/user_interface/lib/python3.12/site-packages"
   ],
+  "cmake.sourceDirectory": "/home/user/gongju_manipulator_2026/gong_ws/src/user_interface",
   "dotnet.defaultSolution": "disable"
 }

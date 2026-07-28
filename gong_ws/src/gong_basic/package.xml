@@ -3,15 +3,12 @@
 <package format="3">
   <name>gong_basic</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="sbeetle1003@gmail.com">user</maintainer>
-  <license>TODO: License declaration</license>
+  <description>gongju university ROS2 basic library</description>
+  <maintainer email="freshmea@naver.com">choi su gil</maintainer>
+  <license>Apache 2.0</license>
 
   <depend>rclpy</depend>
-  <depend>std_msgs</depend>
   <depend>user_interface</depend>
-  <exec_depend>launch</exec_depend>
-  <exec_depend>launch_ros</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

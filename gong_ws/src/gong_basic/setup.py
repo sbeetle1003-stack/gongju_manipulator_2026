@@ -48,9 +48,8 @@ setup(
             "my_param = gong_basic.my_param:main",
             "param_async = gong_basic.param_async:main",
             "action_server = gong_basic.action_server:main",
-            "action_client = gong_basic.action_client:main",
             "action_thread_server = gong_basic.action_thread_server:main",
-
+            "action_client = gong_basic.action_client:main",
         ],
     },
 )

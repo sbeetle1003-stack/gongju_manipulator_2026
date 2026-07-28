@@ -76,7 +76,6 @@ class ActionServerNode(Node):
                 self.get_logger().error(
                     f"step 요청값이 20을 초과하여 중단합니다. 요청값={step}, 수행값=20"
                 )
-
                 goal_handle.abort()
                 return result
 

@@ -2,7 +2,7 @@ import rclpy
 from action_msgs.msg import GoalStatus
 from control_msgs.action import GripperCommand, GripperCommand_GetResult_Response
 from rclpy.action import ActionClient
-from rclpy.lifecycle import Node, State, TransitionCallbackReturn
+from rclpy.node import Node
 from rclpy.task import Future
 from sensor_msgs.msg import JointState
 from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
@@ -11,59 +11,18 @@ from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
 class Manipulator_pub(Node):
     def __init__(self):
         super().__init__("manipulator_pub")  # 노드 이름
-        self.timer = None
-        self.pub = None
-        self.gripper_client = None
-        self.joint_state_subscription = None
+        # timer 등록
+        self.create_timer(2, self.timer_callback)
+        self.pub = self.create_publisher(JointTrajectory, "arm_controller/joint_trajectory", 10)
+        self.gripper_client = ActionClient(self, GripperCommand, "/gripper_controller/gripper_cmd")
+        self.joint_state_subscription = self.create_subscription(
+            JointState, "joint_states", self.joint_callback, 10
+        )
         self.current_joint_position = [0.0, 0.0, 0.0, 0.0]
         self.current_gripper_position = 0.0
         self.joint_state_received = False
         self.count = True
         self.duration_sec = 2
-
-    def on_configure(self, state: State) -> TransitionCallbackReturn:
-        self.pub = self.create_lifecycle_publisher(
-            JointTrajectory, "arm_controller/joint_trajectory", 10
-        )
-        self.gripper_client = ActionClient(self, GripperCommand, "/gripper_controller/gripper_cmd")
-        self.joint_state_subscription = self.create_subscription(
-            JointState, "joint_states", self.joint_callback, 10
-        )
-        self.get_logger().info("on_configure() 호출됨")
-        return TransitionCallbackReturn.SUCCESS
-
-    def on_activate(self, state: State) -> TransitionCallbackReturn:
-        self.timer = self.create_timer(self.duration_sec, self.timer_callback)
-        self.get_logger().info("on_activate() 호출됨")
-        return super().on_activate(state)
-
-    def on_deactivate(self, state: State) -> TransitionCallbackReturn:
-        self.destroy_timer(self.timer)
-        self.timer = None
-        self.get_logger().info("on_deactivate() 호출됨")
-        return super().on_deactivate(state)
-
-    def on_cleanup(self, state: State) -> TransitionCallbackReturn:
-        self.destroy_lifecycle_publisher(self.pub)
-        self.destroy_subscription(self.joint_state_subscription)
-        self.gripper_client.destroy()
-        self.pub = None
-        self.gripper_client = None
-        self.joint_state_subscription = None
-        self.get_logger().info("on_cleanup() 호출됨")
-        return TransitionCallbackReturn.SUCCESS
-
-    def on_shutdown(self, state: State) -> TransitionCallbackReturn:
-        if self.timer is not None:
-            self.destroy_timer(self.timer)
-        if self.pub is not None:
-            self.destroy_lifecycle_publisher(self.pub)
-        if self.joint_state_subscription is not None:
-            self.destroy_subscription(self.joint_state_subscription)
-        if self.gripper_client is not None:
-            self.gripper_client.destroy()
-        self.get_logger().info("on_shutdown() 호출됨")
-        return TransitionCallbackReturn.SUCCESS
 
     def timer_callback(self):
         msg = JointTrajectory()
@@ -147,11 +106,3 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
-
-
-# 2초마다 timer_callback 실행
-#   ├─ 팔 관절(joint1~4)을 자세 A/B 번갈아 목표로 퍼블리시 (arm_controller가 받아서 실제 모션 실행)
-#   └─ 동시에 그리퍼도 열기/닫기 액션 요청
-#        ├─ 서버 확인 → 목표 전송(비동기)
-#        ├─ 목표 접수 확인 → 결과 요청(비동기)
-#        └─ 결과 도착 → 성공/실패/취소 로그 출력
