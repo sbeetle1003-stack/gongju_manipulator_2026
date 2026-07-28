@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell.exe -Command \"Get-Command usbipd -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; winget list usbipd 2>&1 | Select-String -Pattern usbipd\")"
+    ]
+  }
+}
