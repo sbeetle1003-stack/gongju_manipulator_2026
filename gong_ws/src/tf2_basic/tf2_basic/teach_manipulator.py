@@ -71,7 +71,7 @@ class TeachManipulator(Node):
 
     def toque_response_callback(self, future):
         response = future.result()
-        if response is None or response.success:
+        if response is None or not response.success:
             self.get_logger().info("실패")
         else:
             self.get_logger().info("성공")

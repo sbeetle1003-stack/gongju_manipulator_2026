@@ -1,137 +1,141 @@
-# gongju_manipulator_2026
-공주대 ROS 로봇팔 제어 program(2026/07/20~2026/08/14) 
+# gong_manipulator_20206
+- 로보티즈의 매니퓰레이터를 실습하는 수업
+- [교육생공유슬라이드](https://docs.google.com/presentation/d/1u1cTo7-lzOgn1OTffYmj8k5heEegl7OFczK4jscYZt8/edit?usp=sharing)
+- [figma 수업자료](https://www.figma.com/board/0D2JCa1DB0eAV3bslSQIiS/gong_manipulator_20206?node-id=0-1&t=y2PgePJHPb9SdQ8G-1)
+- [사전사후평가](https://forms.gle/8AmhKaho7VugqqrDA)
 
+---
 
-# 2026-07-20 수업 내용 정리(1주차)
---------------------
-- 오전
-- wsl 설치(Ubuntu 24.04)
-- github 계정 생성 및 repository 생성
-- git clone으로 repository를 wsl에 복사
-- VSCode 설치 후 Remote-WSL로 접속
---------------------
-- 오후
-- .bashrc 개념 학습
-- 터미널에서 Tab 자동완성으로 명령어 입력 확인 가능
-- turtlesim_node 실행
-- remap으로 이름을 바꿔서 동일 프로그램 재실행
-- rqt 사용
-- topic은 pub, service는 call로 실행
-- topic: 계속 데이터를 흘려보내는 통신(실시간 스트리밍)
-- service: 필요할 때 요청하고 한 번 응답받는 통신
-- action: 시간이 걸리는 목표를 수행하는 통신
-- service와 action의 차이: service는 즉각적인 수행, action은 동적인(장시간) 수행
---------------------
-- 총정리
-- ROS2 기본 구조(Node, Topic, Service, Action, Parameter)를 turtlesim으로 실습하며 통신 방식별 차이 학습
-- rqt와 YAML 파라미터로 노드 상태 확인 및 환경 설정 적용법 학습
-- ros2 run [패키지] [노드이름]
-- ros2 node, topic(echo, pub, sub, bw, hz), service(call), action(send_goal), interface(proto) 명령 실습
-- GUI 환경과 CLI 환경의 차이
-- 파라미터 등록 시 환경변수를 주로 사용
-- 교재 p.123~p.200
+## 2026-07-20
 
+---
 
+- wsl 을 설치 (Ubuntu 24.04)
+- github 아이디를 만들고 repository를 생성
+- git clone 을 해서 wsl 에 복사
+- Vscode 설치 해서 remote wsl 로 접속
+- github 계정 연동
+- ros2 설치 - jazzy
+- turtlesim 실습
+- ros2 cli 실습
+  - node: list, info
+  - topic: list, info ,echo, pub, sub, bw, hz
+  - service: list, info, call
+  - interface: proto
+- rqt 실습: rqt_graph, topic monitor,
 
+```bash
+ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 1.8}}"
 
+```
 
+---
 
+## 2026-07-21
 
-# 2026-07-21 수업 내용 정리(1주차)
---------------------
-- 오전
-- ros2의 Common Packages
-- .bashrc에 워크스페이스 오버레이(source install/setup.bash), colcon 자동완성, vcstool 자동완성, colcon_cd 설정 추가
-- alias 등록(cbp: colcon build --symlink-install --packages-select, killgazebo)
-- ros2 pkg create --build-type ament_python [패키지명] --dependencies [의존성]으로 패키지 생성 실습
-- package.xml에 지정한 의존성이 <depend> 태그로 자동 반영되는 것 확인
-- setup.py의 entry_points(console_scripts)로 노드를 등록하는 방법 학습
-- 함수형 퍼블리셔 노드 작성(create_timer로 주기적 콜백 실행)
-- 클래스형 퍼블리셔 노드 작성(Node 상속, self.count로 카운터 관리)
-- colcon build로 install 폴더를 갱신해야 ros2 run에 반영됨을 확인(재빌드 필요성)
+---
 
---------------------
-- 오후
-- ros2 run이 install 폴더의 복사본을 실행한다는 것 학습(소스 수정 후 재빌드 필요성)
-- 클래스형 퍼블리셔/구독자 노드 작성(class_pub.py, class_sub.py) 및 문법 오류·노드이름 충돌 버그 수정
-- --symlink-install(cbp) 개념 학습 — 소스 수정 시 재빌드 없이 반영되는 원리
-- .bashrc에 cb(전체 빌드), sb(source ~/.bashrc) alias 추가
-- Header 메시지 + QoSProfile을 사용한 퍼블리셔 노드 작성(header_pub.py)
-- ros2 launch 개념 학습(ros2 run과의 차이 — 여러 노드를 한 번에 실행)
-- hello.launch.py 작성(class_pub, class_sub 동시 실행)
-- rqt 플러그인 활용법 학습(Topic Monitor, Node Graph, Message Publisher, Console)
-- DDS(Data Distribution Service) 개념 — ROS2가 사용하는 통신 미들웨어
---------------------
-- 미니과제
-- message1, message2, time 세 토픽으로 구분되는 5개 노드 작성
-- mpub: message1·message2에 String 발행 / msub: message1 구독 / m2sub: message2 구독
-- tpub: time 토픽에 Header 발행 / mtsub: message1과 time을 동시 구독
-- topic.launch.py로 5개 노드 동시 실행
-- 로그 출력이 너무 빨라 tpub 주기를 10배 조정(0.01초 → 0.1초)
-- rclpy.shutdown() 중복 호출 버그 발견, rclpy.try_shutdown() + destroy_node 예외처리로 수정
---------------------
-- 총정리
+- 1교시: 복습, ros2 common package
+- 2교시: 중요 컨셉(DDS, node spin, state)
+- 3교시: RMW architecture
+- 4교시: Node, Topic, Service, Action 개념
+- 5교시: 패키지 작성 ( ros2 pkg create)
+- 6교시: simple node 작성(publisher, subscriber)
+- 7교시: Header class time pub 작성, 5개 노드 실습
+- 8교시: 터틀심 움직이기
 
+---
 
+## 2026-07-22
 
+---
 
-# 2026-07-22 수업 내용 정리(1주차)
---------------------
-- 오전
-- QoS 복습: qos_test_pub.py 문법 점검, ros2 run 실행 안 되는 원인(빌드 안 됨 vs 오타 vs 확장자) 정리
-- colcon build 개념 정리: cb(--symlink-install) vs 일반 colcon build 차이, 새 파일 추가 시 빌드 필요성
-- 커스텀 인터페이스 패키지(user_interface) 생성 실습: msg/UserInt.msg, srv/AddAndOdd.srv 작성
-- CMakeLists.txt에 rosidl_generate_interfaces로 msg/srv를 빌드하도록 설정, package.xml에 rosidl_interface_packages 등록
-- ament_export_dependencies 오타(rosidl_defualt_runtime → rosidl_default_runtime) 수정
---------------------
-- 오후
-- UserInt.msg에 std_msgs/Header 필드 추가 후 user_int_pub 노드 작성(퍼블리셔에서 커스텀 메시지 사용)
-- AddAndOdd.srv 기반 service_server 작성 — 서비스 요청/응답(합, 홀짝 판별) 처리 실습
-- service_client 작성(call_async + done_callback으로 논블로킹 서비스 호출)
-- 콜백이 오래 걸리는 상황(time.sleep(10)) 재현 → MultiThreadedExecutor + ReentrantCallbackGroup + Lock으로 service_thread_server 작성, 멀티스레드 executor가 필요한 이유 학습
-- KeyboardInterrupt 처리 방식을 get_logger().info()에서 print()로 전체 노드에 일괄 수정(spin 종료 후 로거 호출 시 rcl context invalid 에러 방지)
-- 파라미터 실습: my_param.py(파라미터 선언 + 변경 콜백), param_async.py(AsyncParameterClient로 외부 노드 파라미터 원격 설정)
-- param.launch.py + yaml 파일(my_param.yaml, my_param2.yaml)로 launch 시점에 파라미터 주입하는 방법 학습
+- 1교시: 복습
+- 2교시: DDS wsl 에서 설정해야 할 내용 설명
+- 3교시: interface 정의, msg, srv 작성
+- 4교시: service thread server 작성
+- 5교시: service client 작성()
+- 6교시: parameter (add_on_set_parameter_callback)
+- 7교시: 외부 노드에서 parameter 변경 AsyncParameterClient
+- 8교시: launch 에서의 parameter 설정 Node(parameters=[])
 
---------------------
-- 총정리
-- 커스텀 msg/srv 인터페이스를 정의하고 rosidl_generate_interfaces로 빌드하는 전체 파이프라인(ament_cmake + ament_python 패키지 간 의존) 이해
-- 서비스 서버/클라이언트 기본 패턴과, 콜백이 블로킹될 때 멀티스레드 executor가 왜 필요한지 체득
-- 파라미터의 선언 → 콜백 감지 → 외부 원격 설정 → launch+yaml 주입까지 전체 생명주기 학습
-- colcon build/symlink-install 관련 트러블슈팅 경험(빌드 캐시 충돌, 패키지 이름 불일치)으로 ROS2 빌드 시스템 동작 원리를 더 깊이 이해
+---
 
+## 2026-07-23
 
+---
 
-# 2026-07-23 수업 내용 정리(1주차)
---------------------
-- 오전
-- 액션(Action) 개념 학습: user_interface 패키지에 action/Fibonacci.action 정의(Goal: step, Result/Feedback: header+시퀀스)
-- rosidl_generate_interfaces에 action 파일 추가 시 CMakeLists.txt 설정 방법 학습(action_msgs 암묵적 의존 확인)
-- action_server.py 작성: ActionServer로 fibonacci_server 등록, execute_callback에서 goal_handle로 feedback 스트리밍 후 result 반환
-- rclpy.action.ActionServer 사용법 트러블슈팅: self.action_server(...)로 잘못 호출하던 버그를 self.action_server = ActionServer(...)로 수정
-- .action 파일의 필드명이 곧 생성되는 Python 클래스 속성명이 된다는 것 확인(오타 나면 오타 그대로 필드명이 됨 → rosidl 재빌드 필요성)
-- ros2 action send_goal --feedback 명령으로 실제 목표 전송 및 중간 피드백/최종 결과 확인
-- GoalStatus 로깅, time.sleep(1)로 피드백을 관찰 가능하게 만드는 방법 학습
-- action_server.py 코드리뷰: cancel 요청 미처리(취소 시 succeed() 호출로 예외 위험), time.sleep이 싱글스레드 executor를 블록하는 문제(서비스 때와 동일 패턴), 항상 참인 죽은 분기문 발견
-- VSCode 저장 충돌(Resolve Save Conflict) 대응 방법 학습 — 디스크/에디터 버전이 어긋났을 때 Revert File로 동기화
+- 1교시: 복습
+- 2교시: action interface 정의, action IDL fibonacci 작성
+- 3교시: topic, service, action 의 차이점
+- 4교시: action server 작성, action client 작성
+- 5교시: action thread server 작성( cancel, abort 구현)
+- 6교시: namespace 적용 launch 작성
+- 7교시: static tf 발행
+- 8교시: dynamic tf 발행
 
---------------------
-- 오후
+---
 
---------------------
-- 총정리
+## 2026-07-24
 
+---
 
+- 1교시: 복습
+- 2교시: tf2 설명 tf2 패키지 작성
+- 3교시: tf2 listener 작성, tf2 listener 에서 transform 받아오기
+- 4교시: 실습[터틀심 listener]
+- 5교시: turtlesim 에서 tf2 적용
+- 6교시: urdf 설명, urdf 패키지 작성
+- 7교시: xacro 실습
+- 8교시: urdf 실습
 
-# 2026-07-24 수업 내용 정리(1주차)
---------------------
-- 오전
+---
 
---------------------
-- 오후
+## 2026-07-27
 
---------------------
-- 총정리
+---
 
+- 1교시: 복습
+- 2교시: 하드웨어 연결 및 dynamixel wizard 설치 및 작동 테스트
+- 3교시: manipulator-X 패키지 설치 및 작동 실습
+- 4교시: descriptor 실행 및 tf-tree 확인
+- 5교시: bringup launch 실행 - robot_state_publisher, joint_state_publisher_gui, rviz2 실행
+- 6교시: teleo_keyboard 로 manipulator-X 제어 실습
+- 7교시: node 작성 trajectory_joint_state 로 manipulator-X 제어 실습
+- 8교시: 과제 - 춤추는 로봇 팔 만들기
 
+---
 
+## 2026-07-28
+
+---
+
+- 1교시: 복습
+- 2교시: joint state action code 작성
+- 3교시: [실습] 춤추는 로봇팔 만들기
+- 4교시: teach manipulator 노드 작성 joint_states 구독
+- 5교시: teach manipulator 노드 작성 키보드 인식 코드, yaml 저장 파일
+- 6교시: play_recorded_dance 노드 작성
+- 7교시: pick and place 실습 (traching data 활용)
+- 8교시: moveit 실습
+
+---
+
+## 2026-07-29
+
+---
+
+- 1교시: 복습, moveit node class 작성
+- 2교시: moveit srdf 수정
+- 3교시: moveit position control 실습
+- 4교시:
+- 5교시:
+- 6교시:
+- 7교시:
+- 8교시:
+
+## 추가 해야 할 작업
+- service 교안 부재
+- action 교안 부재
+- launch 교안 부재
+- tf 교안 부재
