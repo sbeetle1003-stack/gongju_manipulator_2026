@@ -156,9 +156,9 @@ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2
 ---
 
 - 1교시: 복습 gazebo spawn model
-- 2교시:
-- 3교시:
-- 4교시:
+- 2교시: 몸체 모델링 및 gazebo 에 적용
+- 3교시: gazebo plugin gz-sim-diff-drive 적용
+- 4교시: launch 파일 작성 (gz-sim, bridge)
 - 5교시:
 - 6교시:
 - 7교시:
