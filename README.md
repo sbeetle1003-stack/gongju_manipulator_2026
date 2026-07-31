@@ -129,6 +129,36 @@ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2
 - 2교시: moveit srdf 수정
 - 3교시: moveit RobotState 로 매니퓰레이터 제어
 - 4교시: moveit rviz2 scence object 추가 및 planning scene 적용
+- 5교시: moveit scene monitor 로 scene object 추가 및 planning scene 적용
+- 6교시: wall 추가 해서 충돌 회피 경로 계획 실습
+- 7교시: moveit pick and place 실습(attachment object 활용)
+- 8교시: moveit pick and place 실습(자세 수정 및 디버깅)
+
+---
+
+## 2026-07-30
+
+---
+
+- 1교시: 복습
+- 2교시: moveit mini project - scene monitor 벽 사이 planning scene 적용
+- 3교시: moveit mini project - scene monitor 벽 사이 planning scene 적용
+- 4교시: thread class 작성 - moveitpy node 융합 class
+- 5교시: gazebo harmonic DOC 분석
+- 6교시: teleop_keyboard 로 gazebo harmonic 제어 실습
+- 7교시: gazebo 에 world 추가 및 수정
+- 8교시: gazebo 에 모델 등록 하고 사용하기 aruco_box 생성
+
+---
+
+## 2026-07-31
+
+---
+
+- 1교시: 복습 gazebo spawn model
+- 2교시:
+- 3교시:
+- 4교시:
 - 5교시:
 - 6교시:
 - 7교시:
