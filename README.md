@@ -127,8 +127,8 @@ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2
 
 - 1교시: 복습, moveit node class 작성
 - 2교시: moveit srdf 수정
-- 3교시: moveit position control 실습
-- 4교시:
+- 3교시: moveit RobotState 로 매니퓰레이터 제어
+- 4교시: moveit rviz2 scence object 추가 및 planning scene 적용
 - 5교시:
 - 6교시:
 - 7교시:
