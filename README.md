@@ -159,6 +159,51 @@ ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2
 - 2교시: 몸체 모델링 및 gazebo 에 적용
 - 3교시: gazebo plugin gz-sim-diff-drive 적용
 - 4교시: launch 파일 작성 (gz-sim, bridge)
+- 5교시: spawn model 로 gazebo 에 모델 등록 및 제어 실습
+- 6교시: vehicle model 에 카메라 추가 및 ros2 interface bridge 적용
+- 7교시: vehicle model tf 발행 -> rviz2 확인
+- 8교시: manipulator-X 에 카메라 추가 및 ros2 interface bridge 적용
+
+---
+
+## 2026-08-03
+
+---
+
+- 1교시: 복습 opencv 설치
+- 2교시: 영상처리의 이해, ros2 node + opencv
+- 3교시: imread, imwrite, jpg 압축 저장 image pub sug 구현
+- 4교시: compressed img pub 구현
+- 5교시: BGR2RGB 구현
+- 6교시: camera 영상 처리, mjpg, gstreamer pipeline 구현
+- 7교시: draw rectangle, draw line, background
+- 8교시: draw circle
+
+---
+
+## 2026-08-04
+
+---
+
+- 1교시: 복습, ellipse
+- 2교시: event mouse, keyboard 예제
+- 3교시: ros2 event 통합 예제
+- 4교시: mask 연산, bitwise_and, bitwise_or, bitwise_not, copyTo
+- 5교시: reshape, flatten, pixel 연산
+- 6교시: roi deep-copy
+- 7교시: color space conversion, inrange trackbar 실습
+- 8교시: manipulator-X gazebo 빨간 공 찾기 실습- model 작성, 노드 작성
+
+---
+
+## 2026-08-05
+
+---
+
+- 1교시: 복습
+- 2교시:
+- 3교시:
+- 4교시:
 - 5교시:
 - 6교시:
 - 7교시:

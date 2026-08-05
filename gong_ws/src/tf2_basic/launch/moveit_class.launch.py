@@ -96,16 +96,19 @@ def generate_launch_description() -> LaunchDescription:
     return LaunchDescription(
         [
             DeclareLaunchArgument(
-                "use_sim_time",
+                "use_sim",
                 default_value="false",
+                description="use_sim_time의 별칭(하위호환)",
+            ),
+            DeclareLaunchArgument(
+                "use_sim_time",
+                default_value=LaunchConfiguration("use_sim"),
                 description="Gazebo의 /clock 사용 여부",
             ),
             DeclareLaunchArgument(
                 "node_executable",
                 default_value="moveit_class",
-                description=(
-                    "tf2_basic setup.py의 console_scripts에 등록된 실행 파일 이름"
-                ),
+                description=("tf2_basic setup.py의 console_scripts에 등록된 실행 파일 이름"),
             ),
             moveit_py_node,
         ]
